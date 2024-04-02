@@ -5,7 +5,6 @@ import TasksTable from "@/Pages/Task/TasksTable.jsx";
 
 export default function show ({ auth, project, tasks, queryParams }) {
   return (
-    // <pre>{JSON.stringify(project)}</pre>
     <AuthenticatedLayout
       user={auth.user}
       header={
