@@ -18,6 +18,15 @@ class TaskResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
+        $imagePath = '';
+        if ($this->image_path) {
+            if (str_contains($this->image_path, 'https://via.placeholder.com')) {
+                $imagePath = $this->image_path;
+            } else {
+                $imagePath = Storage::url($this->image_path);
+            }
+        }
+
         return [
             "id" => $this->id,
             "name" => $this->name,
@@ -26,7 +35,7 @@ class TaskResource extends JsonResource
             "due_date" => (new Carbon($this->due_date))->format("Y-m-d"),
             "status" => $this->status,
             "priority" => $this->priority,
-            'image_path' => $this->image_path && !(str_starts_with($this->image_path, 'http')) ? Storage::url($this->image_path) : '',
+            'image_path' => $imagePath,
             "project" => new ProjectResource($this->project),
             "assignedUser" => $this->assignedUser ? new UserResource($this->assignedUser) : null,
             "createdBy" => new UserResource($this->createdBy),
