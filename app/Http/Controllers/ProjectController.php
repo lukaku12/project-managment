@@ -45,7 +45,7 @@ class ProjectController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create(): Response|ResponseFactory
     {
         return inertia("Project/Create",);
     }
@@ -53,7 +53,7 @@ class ProjectController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreProjectRequest $request)
+    public function store(StoreProjectRequest $request): RedirectResponse
     {
         $data = $request->validated();
         /** @var $image UploadedFile */
@@ -101,7 +101,7 @@ class ProjectController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Project $project)
+    public function edit(Project $project): Response|ResponseFactory
     {
         return inertia('Project/Edit', [
            'project' => new ProjectResource($project),
